@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, DateField
+from wtforms import StringField, SubmitField, DateField, SelectField
 from wtforms.validators import DataRequired
 
 app = Flask(__name__)
@@ -23,7 +23,7 @@ class NameForm(FlaskForm):
 class RegisterAttendance(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     date = DateField('Date', validators=[DataRequired()])
-    course = 
+    course = SelectField('Course', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 # Routes
@@ -31,10 +31,19 @@ class RegisterAttendance(FlaskForm):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     name = None
-    form = NameForm()
+    date = datetime.now # oklart om det är rätt
+    course = None
+
+
+    form = RegisterAttendance()
     if form.validate_on_submit():
         name = form.name.data
         form.name.data=''
+        date = form.date.data
+        form.date.data=''
+        course = form.course.data
+        form.course.data=''
+        
     user_agent = request.headers.get('User-Agent')
     return render_template('index.html', user_agent=user_agent, current_time=datetime.utcnow(), name=name, form=form)
 
