@@ -34,9 +34,12 @@ def index():
 # Kolla mer på hur forms fungerar WTForms
     form = RegisterAttendance()
     if form.validate_on_submit():
+        old.name = session.get('name')
+        if old_name is not None and old_name != form.name.data:
+            flash('Looks like you have changed your name!')
         session['name'] = form.name.data
-        sesssion['date'] = form.date.data
-        sessiom['course'] = form.course.data
+        session['date'] = form.date.data
+        session['course'] = form.course.data
         return redirect(url_for('index'))
     user_agent = request.headers.get('User-Agent')
     return render_template('index.html', user_agent=user_agent, name=session.get('name'), form=form)
