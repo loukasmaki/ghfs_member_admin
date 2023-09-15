@@ -23,7 +23,7 @@ class NameForm(FlaskForm):
 class RegisterAttendance(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     date = DateField('Date', validators=[DataRequired()])
-    course = SelectField('Course', validators=[DataRequired()])
+    course = SelectField(u'Course', choices=[('LS', 'Långsvärd'), ('SOB', 'Svärd och Bucklare'), ('Sabel', 'Sabel')], validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 # Routes
@@ -34,7 +34,7 @@ def index():
 # Kolla mer på hur forms fungerar WTForms
     form = RegisterAttendance()
     if form.validate_on_submit():
-        old.name = session.get('name')
+        old_name = session.get('name')
         if old_name is not None and old_name != form.name.data:
             flash('Looks like you have changed your name!')
         session['name'] = form.name.data
