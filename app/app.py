@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
@@ -30,22 +30,16 @@ class RegisterAttendance(FlaskForm):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    name = None
-    date = datetime.now # oklart om det är rätt
-    course = None
-
-
+    
+# Kolla mer på hur forms fungerar WTForms
     form = RegisterAttendance()
     if form.validate_on_submit():
-        name = form.name.data
-        form.name.data=''
-        date = form.date.data
-        form.date.data=''
-        course = form.course.data
-        form.course.data=''
-        
+        session['name'] = form.name.data
+        sesssion['date'] = form.date.data
+        sessiom['course'] = form.course.data
+        return redirect(url_for('index'))
     user_agent = request.headers.get('User-Agent')
-    return render_template('index.html', user_agent=user_agent, current_time=datetime.utcnow(), name=name, form=form)
+    return render_template('index.html', user_agent=user_agent, name=session.get('name'), form=form)
 
 
 @app.route('/user/<name>')
