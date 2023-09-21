@@ -6,7 +6,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, DateField, SelectField
 from wtforms.validators import DataRequired
 import os
-from flask_sqlalchemy import SQLAlchmey
+from flask_sqlalchemy import SQLAlchemy
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
