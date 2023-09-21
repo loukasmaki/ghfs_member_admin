@@ -90,6 +90,7 @@ class User(db.Model):
     
 
 class Attendance(db.Model):
+    __tablename_ = 'attendance_registered'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
     date = db.Column(db.Date)
