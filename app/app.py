@@ -18,7 +18,7 @@ moment = Moment(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchmey(app)
+db = SQLAlchemy(app)
 
 # Secret key expected by wtforms REMEMBER TO CHANGE WHEN DEPLOYING ALSO WILL BE UPDATED WITH A SAFER APPROACH LATER
 app.config['SECRET_KEY'] = 'hard to guess string'
