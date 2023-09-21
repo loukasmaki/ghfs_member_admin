@@ -68,3 +68,29 @@ def page_not_found(e):
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template('500.html'), 500
+
+
+# Database models
+
+class Role(db.Model):
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+
+    def __repr__(self):
+        return '<Role %r>' % self.name
+
+class User(db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), unique=True, index=True)
+
+    def __repr__ (self):
+        return '<User %r>' % self.username
+    
+
+class Attendance(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64))
+    date = db.Column(db.Date)
+    course = db.Column(db.Integer)
