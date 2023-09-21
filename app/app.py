@@ -5,10 +5,20 @@ from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, DateField, SelectField
 from wtforms.validators import DataRequired
+import os
+from flask_sqlalchemy import SQLAlchmey
+
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
+
+# Database stuff
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchmey(app)
 
 # Secret key expected by wtforms REMEMBER TO CHANGE WHEN DEPLOYING ALSO WILL BE UPDATED WITH A SAFER APPROACH LATER
 app.config['SECRET_KEY'] = 'hard to guess string'
