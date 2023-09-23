@@ -44,7 +44,8 @@ def index():
 # Kolla mer på hur forms fungerar WTForms
     form = RegisterAttendance()
     if form.validate_on_submit():
-        old_name = session.get('name')
+        # Want a query where I check if a person with the same name already has registered 
+        attendandee = Attendance.query.filter_by()
         if old_name is not None and old_name != form.name.data:
             flash('Looks like you have changed your name!')
         session['name'] = form.name.data
